@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>微云，全能收藏，无处不在</title>
+		<link rel="stylesheet" href="../../public/css/index.css" />
+		<script src="/public/js/jquery.min.js"></script>
+		<script src="/public/js/view.js"></script>
+		<script src="/public/js/mTween.js"></script>
+		<script src="/public/js/index.js"></script>
+	</head>
+	<body>
+		<!--吊顶部分-->
+		<header class="head clearflor">
+			<h1>
+				<a href="http://www.weiyun.com/" class="ico logo" >微云</a>
+			</h1>
+			<ul>
+				<li>
+					<a href="#">首页</a>
+				</li>
+				<li>
+					<a href="#download">下载</a>
+				</li>
+				<li>
+					<a href="#album-backup">功能介绍</a>
+				</li>
+				<li>
+					<a href="#describe">微云会员</a>
+				</li>
+			</ul>
+		</header>
+		<!--吊顶结束-->
+		
+		<!--内容部分-->
+		<section class="wrap">
+			<div class="nav">
+				<div id="play-back">
+					<ul class="clearflor">
+						<li>
+							<img src="../../public/img/banner_1.png" />
+						</li>
+						<li>
+							<img src="../../public/img/banner_2.png" />
+						</li>
+						<li>
+							<img src="../../public/img/banner_3.png" />
+						</li>
+						<li>
+							<img src="../../public/img/banner_1.png" />
+						</li>
+					</ul>
+				</div>
+				<div class="box">
+					<ul class="boxlis clearflor">
+						<li class="hover">
+							<span>登录</span>
+						</li>
+						<li>
+							<span>注册</span>
+						</li>
+					</ul>
+					<div class="loginbox submits">
+						<h3>账号密码登录</h3>
+						<p>推荐使用<span>快速安全登录</span>，防止盗号。</p>
+						<form action="/api/user/login" class="login">
+							<div>
+								<input type="text" name="username" />
+								<span class="username">QQ账号</span>
+							</div>
+							<div>
+								<input type="password" name="password" />
+								<span>密码</span>
+							</div>
+							<input type="submit" name="submit" value="登录"/>
+						</form>
+						<div class="submittext"></div>
+					</div>
+					<div class="regiserbox submits">
+						<form action="/api/user/register" class="register">
+							<div>
+								<input type="text" name="username"/>
+								<span>请输入要申请的QQ号</span>
+								<span class="message-username"></span>
+							</div>
+							<div>
+								<input type="password" name="password"/>
+								<span>请输入密码</span>
+							</div>
+							<div>
+								<input type="password" name="repassword" />
+								<span>重复输入密码</span>
+							</div>
+							<input type="submit" name="submit" value="注册" />
+						</form>
+						<div class="submittext"></div>
+					</div>
+					<footer class="foot">
+						<div>
+							<a href="https://aq.qq.com/cn2/findpsw/pc/pc_find_pwd_input_account?source_id=1035" target="_blank">忘记密码？</a>
+							<span></span>
+							<a href="https://ssl.zc.qq.com/chs/index.html?from=pt" target="_blank">注册新账号</a>
+							<span></span>
+							<a href="http://support.qq.com/write.shtml?guest=1&fid=713&SSTAG=hailunna" target="_blank">意见反馈</a>
+						</div>
+					</footer>
+				</div>
+			</div>
+			<div id="download" class="download">
+				<ul class="downloadWrap">
+					<li>
+						<div class="ico androidbg"></div>
+						<span>Android版</span>
+					</li>
+					<li>
+						<div class="ico iphonebg"></div>
+						<span>iPhone版</span>
+					</li>
+					<li>
+						<div class="ico ipadbg"></div>
+						<span>iPad版</span>
+					</li>
+					<li class="windowli">
+						<div class="ico windowbg"></div>
+						<span>Window版</span>
+					</li>
+					<li>
+						<div class="ico macbg"></div>
+						<span>Mac版</span>
+					</li>
+				</ul>
+			</div>
+			<div id="album-backup" class="album-backup">
+				<div class="boxs clearflor">
+					<div class="text fl">
+						<h3 class="title">相册备份</h3>
+						<p class="content">WiFi环境下自动备份您手机中的照片备份后其他终端随时管理自己的照片</p>
+					</div>
+					<div class="fr img">
+						<img src="../../public/img/album-backup.png" />
+					</div>
+				</div>
+			</div>
+			<div id="contact-backup" class="contact-backup">
+				<div class="boxs clearflor">
+					<div class="text fr">
+						<h3 class="title">通讯录备份</h3>
+						<p class="content">让你的联系人永不丢失，一键备份联系人换手机、丢手机、换号码永不发愁</p>
+					</div>
+					<div class="fl img">
+						<img src="../../public/img/contact-backup.png" />
+					</div>
+				</div>
+			</div>
+			<div id="file" class="file">
+				<div class="boxs clearflor">
+					<div class="text fl">
+						<h3 class="title">文件管理</h3>
+						<p class="content">文件分门别类，支持全局搜索与批量操作，独有略缩图展示模式，帮助您全面掌控您的文件资源，随心所欲</p>
+					</div>
+					<div class="fr img">
+						<img src="../../public/img/file-manage.png" />
+					</div>
+				</div>
+			</div>
+			<div id="cloudynotes" class="cloudynotes">
+				<div class="boxs clearflor">
+					<div class="text fr">
+						<h3 class="title">云笔记</h3>
+						<p class="content">收集和整理各种会议记录、日程安排、生活备忘、讲课笔记、地址电话等，保存的笔记可以多种设备跨平台阅读和分享</p>
+					</div>
+					<div class="fl img">
+						<img src="../../public/img/cloudynotes.png" />
+					</div>
+				</div>
+				
+			</div>
+			<div id="trash" class="trash">
+				<div class="boxs clearflor">
+					<div class="text fl">
+						<h3 class="title">剪贴板 回收站 收藏夹</h3>
+						<p class="content">手机复制、电脑粘贴，电脑复制、手机粘贴您能在回收站找回过去30天您删除的文件，收藏喜欢和重要的文件</p>
+					</div>
+					<div class="fr img">
+						<img src="../../public/img/trash.png" />
+					</div>
+				</div>
+			</div>
+			<div id="describe" class="describe">
+				<ul class="clearflor">
+					<li>
+						<div class="ico files"></div>
+						<div class="destitle">
+							<h3>单文件更大</h3>
+						</div>
+						<div class="content">
+							<p>单个文件最大20G</p>
+						</div>
+					</li>
+					<li>
+						<div class="ico flow"></div>
+						<div class="destitle ">
+							<h3>单日流量更爽</h3>
+						</div>
+						<div class="content">
+							<p>单日最大20G</p>
+						</div>
+					</li>
+					<li>
+						<div class="ico space"></div>
+						<div class="destitle">
+							<h3>空间更大</h3>
+						</div>
+						<div class="content">
+							<p>额外赠送2T空间</p>
+						</div>
+					</li>
+					<li>
+						<div class="ico share"></div>
+						<div class="destitle">
+							<h3>分享更久</h3>
+						</div>
+						<div class="content">
+							<p>外链30天有效</p>
+						</div>
+					</li>
+					<li>
+						<div class="ico label"></div>
+						<div class="destitle">
+							<h3>标签更全</h3>
+						</div>
+						<div class="content">
+							<p>识别全部图片 按标签分类</p>
+						</div>
+					</li>
+				</ul>
+				<div class="member">
+					<a href="http://pay.qq.com/ipay/index.shtml?c=wyclub&aid=platform_pay&ch=qdqb,kj" taget="_blank">
+						马上开通会员
+					</a>
+				</div>
+				<div class="wyroom">
+					<div class="fl">
+						<span>关注微云官方认证空间</span>
+					</div>
+					<a href="http://user.qzone.qq.com/2012010/" target="_blank" class="fr">
+						<span class="ico fl"></span>
+						<span class="fl">关注</span>
+					</a>
+				</div>
+			</div>
+		</section>
+		<!--内容部分结束-->
+		
+		<!--底部内容-->
+		<footer class="footer">
+			<div class="correlation clearflor">
+				<ul class="fl">
+					<li>
+						<a href="http://z.qzone.com/" target="_self" class="ico qzone"></a>
+						<p>QQ空间</p>
+					</li>
+					<li>
+						<a href="http://y.qq.com/" target="_self" class="ico yqq"></a>
+						<p>QQ音乐</p>
+					</li>
+					<li>
+						<a href="http://mtv.qq.com/" target="_self" class="ico mv"></a>
+						<p>企鹅MV</p>
+					</li>
+					<li>
+						<a href="https://fm.qq.com/" target="_self" class="ico fm"></a>
+						<p>企鹅FM</p>
+					</li>
+					<li>
+						<a href="https://ke.qq.com/" target="_self" class="ico ke"></a>
+						<p>腾讯课堂</p>
+					</li>
+				</ul>
+				<div class="fl"></div>
+				<ul class="fl">
+					<li>
+						<a href="https://www.qcloud.com/" target="_self" class="ico qcloud"></a>
+						<p>腾讯云</p>
+					</li>
+					<li>
+						<a href="http://qidian.qq.com/" target="_self" class="ico qidian"></a>
+						<p>腾讯企点</p>
+					</li>
+				</ul>
+			</div>
+			<div class="appendix">
+				<div class="clearflor divI">
+					<a href="http://www.tencent.com/zh-cn/index.shtml">关于腾讯</a>
+					<span class="bg"></span>
+					<a href="http://www.weiyun.com/other/xy.html">服务条款</a>
+					<span class="bg"></span>
+					<a href="http://kf.qq.com/">客服中心</a>
+					<span class="bg"></span>
+					<span>粤B2-20090059-86号</span>
+				</div>
+				<p>版权声明：您应尊重相关作品著作权人合法权益，未经著作权人合法授权，不能违法上传、存储、分享他人作品</p>
+				<div class="clearflor divII">
+					<a href="http://www.weiyun.com/complaint.html">侵权投诉指引</a>
+					<span class="bg"></span>
+					<div class="fl">
+						<span>举报或投诉</span>
+						<a href="javascript:;">notice-b2@tencent.com</a>
+					</div>
+				</div>
+				<p>Copyright © 1998 - 2016 Tencent. All Rights Reserved. 腾讯公司 版权所有</p>
+			</div>
+		</footer>
+		<!--底部内容结束-->
+		
+		<!--定位导航-->
+		<ul id="fixednav">
+			<li class="clearfix">
+				<div class="img over">
+					<span class="arrows over"></span>
+					<a  href="#" class="ico home "></a>
+				</div>
+				<div class="text">
+					<a href="#" >首页</a>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="img">
+					<span class="arrows"></span>
+					<a href="#download" class="ico download"></a>
+				</div>
+				<div class="text">
+					<a href="#download">下载</a>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="img">
+					<span class="arrows"></span>
+					<a href="#album-backup" class="ico album-backup"></a>
+				</div>
+				<div class="text">
+					<a href="#album-backup">功能</a>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="img">
+					<span class="arrows"></span>
+					<a href="#describe" class="ico describe"></a>
+				</div>
+				<div class="text">
+					<a href="#describe">会员</a>
+				</div>
+			</li>
+		</ul>
+	</body>
+</html>
