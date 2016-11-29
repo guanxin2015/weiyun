@@ -1,0 +1,15 @@
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.pa {
+  position: absolute;
+}
+.pr {
+  position: relative;
+}
+.bs {
+  box-sizing: border-box;
+}

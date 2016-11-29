@@ -3,11 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<link rel="stylesheet" href="../../public/css/disk.css" />
+		<link rel="stylesheet" href="/public/css/disk.css" />
 		<script src="/public/js/jquery.min.js"></script>
-		<script src="/public/js/gadget.js"></script>
+		<script src="/public/js/tools.js"></script>
 		<script src="/public/js/view.js"></script>
-		<script src="/public/js/dick.js"></script>
+		<script src="/public/js/model.js"></script>
+		<script src="/public/js/disk.js"></script>
 	</head>
 	<body>
 		<div class="wrapBox">
@@ -76,12 +77,12 @@
 						</div>
 					</div>
 				</nav>
-				<nav class="clearfix navigation">
+				<nav id="navigation" class="clearfix navigation">
 					<h3 class="fl logo">
 						<a class="ico logo-bg" href="index.html" >微云</a>
 					</h3>
-					<div class="fl text cancel">取消选择</div>
-					<div class="fl selected">选择了<span>1</span>项</div>
+					<div id="cancel" class="fl text cancel">取消选择</div>
+					<div class="fl selected">选择了<span id="checkednum"></span>项</div>
 					<ul class="fr lists">
 						<li class="text">
 							<span class="ico downloadbg"></span>
@@ -95,7 +96,7 @@
 							<span class="ico movebg"></span>
 							<span>移动到</span>
 						</li>
-						<li class="text">
+						<li id="rename" class="text">
 							<span class="ico renamebg"></span>
 							<span>重命名</span>
 						</li>
@@ -105,6 +106,7 @@
 						</li>
 					</ul>
 				</nav>
+				<div id="head-tips" class="head-tips"></div>
 			</header>
 			
 			<!--内容部分-->
@@ -114,7 +116,7 @@
 				<nav class="nav">
 					<div class="username">
 						<div class="portrait">
-							<img class="bg users" src="../../public/img/1.gif" />
+							<img class="bg users" src="/public/img/1.gif" />
 						</div>
 						<div class="userinfo">
 							<div class="arrow">
@@ -210,7 +212,7 @@
 				<section class="contentbox">
 					<!--面包屑导航-->
 					<nav id="crumbs" class="crumbs slt">
-						<div class="fl checkAll">
+						<div id="checkAll" class="fl checkAll">
 							<div class="ico fl"></div>
 							<div class="fl bg"></div>
 						</div>
@@ -229,7 +231,7 @@
 					<div id="contentlist" class="contentlist slt">
 						<div id="contentbg" class="contentbg">
 							<div class="bg">
-								<img src="../../public/img/icon-nofile.png" />
+								<img src="/public/img/icon-nofile.png" />
 							</div>
 							<h2 class="text">暂无文件</h2>
 							<p class="tips">请点击右上角的"添加"按钮添加</p>
@@ -238,6 +240,11 @@
 							<!--<li id="1" class="box slt">
 								<div class="fl ico folder"></div>
 								<span class="fl text">练习</span>
+								<div class="ico check"></div>
+							</li>-->
+							<!--<li id="1" class="box slt">
+								<div class="fl ico folder"></div>
+								<input type="text" class="fl input" value="" />
 								<div class="ico check"></div>
 							</li>-->
 							
@@ -263,10 +270,33 @@
 						</ul>
 					</div>
 				</section>
-				
-				<!--弹出层-->
-				<div class="tipsbox"></div>
 			</section>
+			<!--弹出层-->
+			<div class="tipsbg">
+				<div class="tipsbox">
+					<header class="head">
+						<h3 class="fl title">选择存储位置</h3>
+						<div class="ico fr"></div>
+					</header>
+					<div class="clearfix box">
+						<div class="top">
+							<div class="ico file"></div>
+							<div class="text">
+								<div class="fl name">111</div>
+								<div class="fl describe">等<span>12</span>个文件</div>
+							</div>
+						</div>
+						<div class=""></div>
+						<div class="fr btns">
+							<div class="fl btn yes checked">确定</div>
+							<div class="fl btn no">取消</div>
+						</div>
+					</div>
+					<footer class="foot">
+						严禁存储、处理、传输、发布任何涉密、色情、暴力、侵权等违法违规信息
+					</footer>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

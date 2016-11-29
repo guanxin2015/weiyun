@@ -75,3 +75,21 @@ function checkedIndex(obj){
 		}
 	}
 }
+//获取年月日的时间函数
+function timeI(t){
+	var time = new Date(t);
+	var year = time.getFullYear();
+	var month = (time.getMonth()+1) <10 ? '0'+ (time.getMonth()+1) : time.getMonth()+1;
+	var dates = time.getDate() < 10 ? '0'+time.getDate() : time.getDate();
+	return year + '-' + month +'-'+ dates;
+}
+//获取小时，分的时间函数
+function timeII(t){
+	var time = new Date(t);
+	var hours = time.getHours() < 10? '0'+ timet.getHours() : time.getHours();
+	var minutes = time.getMinutes() <10 ? '0'+time.getMinutes() : time.getMinutes();
+	return hours + ':' + minutes;
+}
+
+
+
