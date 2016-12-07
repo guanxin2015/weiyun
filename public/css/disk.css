@@ -40,6 +40,7 @@ input {
 }
 a {
   text-decoration: none;
+  color: #000;
 }
 html {
   overflow: hidden;
@@ -452,7 +453,8 @@ body {
 .wrapcontent .navcontent {
   margin-top: 90px;
 }
-.wrapcontent .navcontent span {
+.wrapcontent .navcontent span,
+.wrapcontent .navcontent a {
   display: inline-block;
   vertical-align: middle;
 }
@@ -679,10 +681,12 @@ body {
   margin: 23px 15px 0 0;
   background-position: -992px -121px;
 }
-.crumbs .text:hover {
+.crumbs .text {
   color: #4887cc;
-  text-decoration: underline;
   cursor: pointer;
+}
+.crumbs .text:hover {
+  text-decoration: underline;
 }
 /*面包屑导航结束*/
 /*文件内容开始*/
@@ -709,6 +713,9 @@ body {
 .contentlist .input {
   width: 120px;
   height: 20px;
+}
+.contentlist .box {
+  cursor: pointer;
 }
 .contentlist .box.slt {
   float: left;
@@ -770,6 +777,64 @@ body {
 .contentlist .box.slt.hover .check {
   display: block;
 }
+.contentlist .box.rests {
+  width: 198px;
+  height: 193px;
+  box-sizing: border-box;
+  margin: 0 17px 15px 0;
+  border: 2px solid #fff;
+  box-shadow: none;
+}
+.contentlist .box.rests .top {
+  width: 100%;
+  height: 149px;
+  box-sizing: border-box;
+  border: 1px solid #d4d5d9;
+  overflow: hidden;
+}
+.contentlist .box.rests .img {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+.contentlist .box.rests .input {
+  margin: 10px 0 0 0;
+}
+.contentlist .box.rests .bottom {
+  width: 100%;
+  height: 40px;
+}
+.contentlist .box.rests .bottom .ico {
+  width: 18px;
+  height: 18px;
+  margin: 12px 12px 0 10px;
+}
+.contentlist .box.rests .bottom .text {
+  width: 144px;
+  height: 100%;
+  line-height: 40px;
+  margin-top: 0;
+}
+.contentlist .box.rests:hover,
+.contentlist .box.rests.hover {
+  margin: 0 15px 15px 0;
+  border-color: #399ef8;
+}
+.contentlist .box.rests:hover .top,
+.contentlist .box.rests.hover .top {
+  border: none;
+  border-bottom: 1px solid #d4d5d9;
+}
+.contentlist .box.rests:hover .check,
+.contentlist .box.rests.hover .check {
+  top: -2px;
+  right: -2px;
+}
+.contentlist .box.rests:hover .bottom,
+.contentlist .box.rests.hover .bottom {
+  width: 100%;
+  height: 40px;
+}
 .contentlist .box.lb {
   width: 100%;
   height: 56px;
@@ -782,7 +847,7 @@ body {
 .contentlist .box.lb .check {
   width: 18px;
   height: 18px;
-  margin: 21px 13px 16px 0;
+  margin: 21px 0 16px 0;
   background-position: -752px -849px;
 }
 .contentlist .box.lb .input {
@@ -794,12 +859,24 @@ body {
 .contentlist .box.lb .check.checked {
   background-position: -904px -849px;
 }
-.contentlist .box.lb .folder {
+.contentlist .box.lb .folder,
+.contentlist .box.lb .image {
+  width: 40px;
+  height: 40px;
+  margin: 8px 15px 0 9px;
+}
+.contentlist .box.lb .folder .ico {
   width: 32px;
   height: 32px;
-  margin-top: 12px;
-  margin-right: 20px;
   background-position: -86px -881px;
+  margin: 4px;
+}
+.contentlist .box.lb .image {
+  overflow: hidden;
+}
+.contentlist .box.lb .image img {
+  width: 100%;
+  height: auto;
 }
 .contentlist .box.lb .text,
 .contentlist .box.lb .time {
@@ -862,8 +939,7 @@ body {
 .contentlist .box.lb.hover {
   background-color: #f3f9ff;
 }
-.contentlist .box.lb:hover .choice,
-.contentlist .box.lb.hover .choice {
+.contentlist .box.lb:hover .choice {
   display: block;
 }
 /*文件内容结束*/
@@ -901,7 +977,8 @@ body {
   color: #fff;
 }
 /*弹出层内容*/
-.tipsbg {
+.tipsbg,
+.progress {
   position: absolute;
   left: 0;
   top: 0;
@@ -909,7 +986,8 @@ body {
   bottom: 0;
   z-index: 300;
   background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
+}
+.tipsbg {
   display: none;
 }
 .tipsbox {
@@ -933,6 +1011,10 @@ body {
   height: 12px;
   margin-top: 23px;
   cursor: pointer;
+  transition: 1s;
+}
+.tipsbox .head .ico:hover {
+  transform: rotate(360deg);
 }
 .tipsbox .head .title {
   font-size: 18px;
@@ -954,6 +1036,9 @@ body {
 .tipsbox .ico.image {
   background-position: -849px -782px;
 }
+.tipsbox .ico.audio {
+  background-position: -741px -544px;
+}
 .tipsbox .text {
   height: 37px;
   line-height: 34px;
@@ -967,7 +1052,7 @@ body {
   width: 402px;
   height: 240px;
   box-sizing: border-box;
-  border: 1px solid #dcdbe1;
+  border: 1px solid #ddd;
 }
 .tipsbox .content .title {
   box-sizing: border-box;
@@ -976,11 +1061,76 @@ body {
   border-bottom: 1px solid #dfdfdf;
   padding-left: 10px;
 }
+.tipsbox .content.remove {
+  border-color: #fff;
+  width: 352px;
+  height: 80px;
+}
+.tipsbox .content.remove .icon {
+  float: left;
+  width: 26px;
+  height: 26px;
+  margin: 18px 6px 0 32px;
+  background-position: -105px -228px;
+}
+.tipsbox .content.remove .text {
+  float: left;
+  margin-top: 16px;
+}
+.tipsbox .content.remove .text-top {
+  line-height: 24px;
+  height: 24px;
+  font-size: 16px;
+}
+.tipsbox .content.remove .text-bottom {
+  line-height: 28px;
+  height: 28px;
+  color: #85848c;
+}
+.tipsbox .content.uploading {
+  width: 402px;
+  height: 39px;
+}
+.tipsbox .content.uploading .title-left {
+  line-height: 37px;
+  padding-left: 10px;
+}
+.tipsbox .content.uploading .uploading-nav {
+  padding-left: 10px;
+}
+.tipsbox .content.uploading .title-right {
+  width: 68px;
+  height: 37px;
+  border-left: 1px solid #dedede;
+  line-height: 37px;
+  text-align: center;
+  cursor: pointer;
+}
 .tipsbox .listsbox {
   overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 200px;
 }
 .tipsbox .listsbox .lists {
   overflow: auto;
+}
+.tipsbox .listsbox .roll-box {
+  width: 8px;
+  height: 100%;
+  background-color: #f4f5f7;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+.tipsbox .listsbox .roll {
+  width: 100%;
+  height: 50px;
+  background-color: #d7d8dd;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .tipsbox .btns {
   padding: 24px 0;
@@ -993,6 +1143,7 @@ body {
   text-align: center;
   line-height: 34px;
   border-radius: 25px;
+  cursor: pointer;
 }
 .tipsbox .btn.checked {
   background-color: #318ef6;
@@ -1008,6 +1159,7 @@ body {
   background-color: #fce7bc;
   text-align: center;
   line-height: 24px;
+  display: none;
 }
 .head-tips {
   position: absolute;
@@ -1015,10 +1167,87 @@ body {
   left: 42%;
   width: 224px;
   height: 30px;
-  background-color: #f49918;
   color: #fff;
   line-height: 30px;
   text-align: center;
   z-index: 330;
   display: none;
+}
+.head-tips.fail {
+  background-color: #f49918;
+}
+.head-tips.success {
+  background-color: #eaffda;
+}
+/*框选样式*/
+.rect-box {
+  position: absolute;
+  background-color: #b5d6ee;
+  opacity: .6;
+  z-index: 220;
+}
+/*拖拽盒子的样式*/
+.dragbox {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  border: 1px solid #1f91ea;
+  background-color: #00aaff;
+  color: #fff;
+  text-align: center;
+  line-height: 24px;
+  border-radius: 50%;
+  display: none;
+  z-index: 340;
+}
+.word-bg {
+  background-position: -916px -423px;
+}
+.xlsx-bg {
+  background-position: -935px -423px;
+}
+.image-bg {
+  background-position: -802px -423px;
+}
+.audio-bg {
+  background-position: -741px -544px;
+}
+.video-bg {
+  background-position: -703px -544px;
+}
+.word,
+.audio,
+.video,
+.xlsx {
+  width: 100px;
+  height: 76px;
+  margin: auto;
+}
+.word {
+  background-position: 0 -588px;
+}
+.xlsx {
+  background-position: 0 -689px;
+}
+.audio {
+  background-position: -209px -588px;
+}
+.video {
+  background-position: -406px -588px;
+}
+/*上传进度*/
+.progress {
+  display: flex;
+}
+.progressBar {
+  width: 500px;
+  height: 50px;
+  border-radius: 20%;
+  border: 1px solid #5099f4;
+}
+.hehe {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }

@@ -86,7 +86,7 @@ function timeI(t){
 //获取小时，分的时间函数
 function timeII(t){
 	var time = new Date(t);
-	var hours = time.getHours() < 10? '0'+ timet.getHours() : time.getHours();
+	var hours = time.getHours() < 10? '0'+ time.getHours() : time.getHours();
 	var minutes = time.getMinutes() <10 ? '0'+time.getMinutes() : time.getMinutes();
 	return hours + ':' + minutes;
 }

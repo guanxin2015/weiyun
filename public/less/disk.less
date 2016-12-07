@@ -397,7 +397,7 @@ body {
     }
     .navcontent {
         margin-top: 90px;
-        span {
+        span,a {
             display: inline-block;
             vertical-align: middle;
         }
@@ -628,10 +628,12 @@ body {
             .bp(-992px,-121px);
         }
     }
-    .text:hover {
+    .text {
         color: #4887cc;
-        text-decoration: underline;
         cursor: pointer;
+    }
+    .text:hover {
+        text-decoration: underline;
     }
 }
 /*面包屑导航结束*/
@@ -658,6 +660,9 @@ body {
     }
     .input {
         .wh(120px,20px);
+    }
+    .box {
+        cursor: pointer;
     }
     .box.slt {
         .fl;
@@ -712,6 +717,58 @@ body {
             display: block;
         }
     }
+    .box.rests {
+        .wh(198px,193px);
+        .bs;
+        margin: 0 17px 15px 0;
+        border: 2px solid #fff;
+        box-shadow: none;
+        .top {
+            .wh(100%,149px);
+            .bs;
+            border: 1px solid #d4d5d9;
+            overflow: hidden;
+        };
+        .img {
+            display: inline-block;
+            width: 100%;
+            height: auto;
+        }
+        .input {
+            margin: 10px 0 0 0;
+        }
+        .bottom {
+            .wh(100%,40px);
+            .ico {
+                .wh(18px,18px);
+                margin: 12px 12px 0 10px;
+            }
+            .text {
+                .wh(144px,100%);
+                height: 100%;
+                line-height: 40px;
+                margin-top: 0;
+            }
+            
+        }
+    }
+    .box.rests:hover,
+    .box.rests.hover {
+        margin: 0 15px 15px 0;
+        border-color: #399ef8;
+        .top {
+            border:none;
+            border-bottom: 1px solid #d4d5d9;
+        }
+        .check {
+            top: -2px;
+            right: -2px;
+        }
+        .bottom {
+            .wh(100%,40px);
+        }
+    }
+    
     .box.lb {
         .wh(100%,56px);
         padding-left: 39px;
@@ -721,7 +778,7 @@ body {
         }
         .check {
             .wh(18px,18px);
-            margin: 21px 13px 16px 0;
+            margin: 21px 0 16px 0;
             .bp(-752px,-849px);
         }
         .input {
@@ -733,11 +790,23 @@ body {
         .check.checked {
             .bp(-904px,-849px);
         }
+        .folder,
+        .image {
+            .wh(40px,40px);
+            margin: 8px 15px 0 9px;
+        }
         .folder {
-            .wh(32px,32px);
-            margin-top: 12px;
-            margin-right: 20px;
-            .bp(-86px,-881px);
+           .ico {
+               .wh(32px,32px);
+               .bp(-86px,-881px); 
+               margin: 4px;
+           }
+        }
+        .image {
+            overflow: hidden;
+            img {
+                .wh(100%,auto);
+            }
         }
         .text,.time {
             height: 52px;
@@ -798,11 +867,12 @@ body {
     .box.lb:hover,
     .box.lb.hover {
         .bc(#f3f9ff);
+    }
+    .box.lb:hover {
         .choice {
             display: block;
         }
     }
-    
     
 }
 /*文件内容结束*/
@@ -842,7 +912,8 @@ body {
 }
 
 /*弹出层内容*/
-.tipsbg {
+.tipsbg,
+.progress {
     .pa;
     left: 0;
     top: 0;
@@ -850,7 +921,8 @@ body {
     bottom: 0;
     z-index: 300;
     .bc(rgba(255,255,255,.5));
-    display: flex;
+}
+.tipsbg {
     display: none;
 }
 .tipsbox {
@@ -870,6 +942,10 @@ body {
             .wh(12px,12px);
             margin-top: 23px;
             cursor: pointer;
+            transition:1s;
+        }
+        .ico:hover {
+            transform:rotate(360deg);
         }
         .title {
             font-size: 18px;
@@ -893,6 +969,9 @@ body {
     .ico.image {
         .bp(-849px,-782px)
     }
+    .ico.audio {
+        .bp(-741px,-544px);
+    }
     .text {
         height: 37px;
         line-height: 34px;
@@ -905,7 +984,7 @@ body {
     .content {
         .wh(402px,240px);
         .bs;
-        border: 1px solid #dcdbe1;
+        border: 1px solid #ddd;
         .title {
             .bs;
             height: 38px;
@@ -914,10 +993,68 @@ body {
             padding-left: 10px;
         }
     }
+    .content.remove {
+        border-color: #fff;
+        .wh(352px,80px);
+        .icon {
+           .fl;
+           .wh(26px,26px);
+           margin: 18px 6px 0 32px;
+           .bp(-105px,-228px);
+        }
+        .text {
+           .fl;
+           margin-top: 16px;
+        }
+        .text-top {
+            line-height: 24px;
+            height: 24px;
+            font-size: 16px;
+        }
+        .text-bottom {
+            line-height: 28px;
+            height: 28px;
+            color: #85848c;
+        }
+    }
+    .content.uploading {
+        .wh(402px,39px);
+        .title-left {
+            line-height: 37px;
+            padding-left: 10px;
+        }
+        .uploading-nav {
+            padding-left: 10px;
+        }
+        .title-right {
+            .wh(68px,37px);
+            border-left: 1px solid #dedede;
+            line-height: 37px;
+            text-align: center;
+            cursor: pointer;
+        }
+    }
     .listsbox {
         overflow: hidden;
+        .pr;
+        .wh(100%,200px);
         .lists {
             overflow: auto;
+        }
+        .roll-box {
+            .wh(8px,100%);
+            .bc(#f4f5f7);
+            .pa;
+            top: 0;
+            right: 0;
+            display: none;
+        }
+        .roll {
+            .wh(100%,50px);
+            .bc(#d7d8dd);
+            .pa;
+            left: 0;
+            top: 0;
         }
     }
     .btns {
@@ -930,6 +1067,7 @@ body {
         text-align: center;
         line-height: 34px;
         border-radius: 25px;
+        cursor: pointer;
     }
     .btn.checked {
         .bc(#318ef6);
@@ -944,6 +1082,7 @@ body {
         .bc(#fce7bc);
         text-align: center;
         line-height: 24px;
+        display: none;
     }
 }
 .head-tips {
@@ -952,10 +1091,87 @@ body {
     left:42%;
     width: 224px;
     height: 30px;
-    background-color: #f49918;
     color: #fff;
     line-height: 30px;
     text-align: center;
     z-index: 330;
     display: none;
+}
+.head-tips.fail {
+    .bc(#f49918);
+}
+.head-tips.success {
+    .bc(#eaffda);
+}
+/*框选样式*/
+.rect-box {
+    .pa;
+    .bc(#b5d6ee);
+    opacity: .6;
+    z-index: 220;
+}
+
+/*拖拽盒子的样式*/
+.dragbox {
+    .pa;
+    .wh(24px,24px);
+    .bs;
+    border: 1px solid #1f91ea;
+    .bc(#0af);
+    color: #fff;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 50%;
+    display: none;
+    z-index: 340;
+}
+.word-bg {
+    .bp(-916px,-423px);
+}
+.xlsx-bg {
+    .bp(-935px,-423px);
+}
+.image-bg {
+    .bp(-802px,-423px)
+}
+.audio-bg {
+    .bp(-741px,-544px);
+}
+.video-bg {
+    .bp(-703px,-544px);
+}
+
+.word,
+.audio,
+.video,
+.xlsx {
+    .wh(100px,76px);
+    margin: auto;
+}
+.word {
+    .bp(0,-588px);
+}
+.xlsx {
+    .bp(0,-689px);
+}
+.audio {
+    .bp(-209px,-588px);
+}
+.video {
+    .bp(-406px,-588px);
+}
+
+/*上传进度*/
+.progress {
+    display: flex;
+}
+.progressBar {
+    .wh(500px,50px);
+    border-radius: 20%;
+    border: 1px solid #5099f4;
+}
+.hehe{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
 }

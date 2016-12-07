@@ -1,5 +1,4 @@
 $(function(){
-	
 	//初始化
 	WeiYun.crumbsList();  //面包屑导航
     WeiYun.renderMainList();  //渲染主区域列表
@@ -34,15 +33,60 @@ $(function(){
 	//弹出层取消选择键
 	$('#cancel').on('click',function(){
 		WeiYun.currentChenkedCount = 0;
-		checkHide($('#content .check'));
+		checkHide($('#contentArea .check'));
 	})
 	
 	//弹出层重命名
-	$('#rename').on('click',function(){
+	$('#renamebtn').on('click',function(){
 		renameObj();
 	})
 	
+	//移动到 ---未完成，需要考虑层级的问题
+	$('#movebtn').on('click',function(){
+		$('.tipsbg').css('display','flex');
+		$('.tipsbg .lists').html();
+	})
 	
+	//删除到回收站
+	$('#delete').on('click',function(){
+		$('.tipsbg').css('display','flex').attr('_id','delete');
+		$('.tipsbg #headtitle').html('删除文件');
+		$('.tipsbg .top').hide();
+		$('.tipsbg .foot').hide();
+		$('.tipsbg .content').addClass('remove').html(deleteHtml());
+	})
+	
+	
+	//添加按钮的上传操作
+	$('#filebg').on('change',function(){
+		fileFun(this.files.length,$(this))
+		
+	})
+	//弹出层按钮
+	$('#tipsoff').on('click',function(){
+		$('.tipsbg').css('display','none');
+	})
+	
+	$('.tipsbg .no').on('click',function(){
+		var classNames = $('.tipsbg').attr('_id');
+		$('.tipsbg').css('display','none');
+	})
+	
+	$('.tipsbg .yes').on('click',function(){
+		var classNames = $('.tipsbg').attr('_id');
+		if(classNames == 'delete'){
+			moveToRecycleBin();
+//			removeBtn();
+		}
+		
+		if(classNames == 'uploading'){
+			WeiYun.uploading();
+			
+		}
+		
+		$('.tipsbg').css('display','none');
+		
+	});
 /**********左侧导航部分开始**********/
 	//头像按钮显示弹框事件
 	displayNems($('.portrait'),$('.username'),$('.userinfo'));
@@ -81,21 +125,22 @@ $(function(){
 			var checkIndex = e.target.getAttribute('class').indexOf('checked');
 			if( checkIndex == -1 ){
 				WeiYun.currentChenkedCount = WeiYun.currentCount;
-				checkShow($('#content .check'));
+				checkShow($('#contentArea .check'));
 			}else {
 				WeiYun.currentChenkedCount = 0;
-				checkHide($('#content .check'));
+				checkHide($('#contentArea .check'));
 			}
 		}
+	})
+	$('#checkAll').on('mousedown',function(){  //阻止冒泡
+		return false;
 	})
 	
 /*****列表界面开始*****/
 	//框选效果
 	$('#contentlist').on('mousedown',function(e){
-		WeiYun.currentChenkedCount = 0;
-		checkHide($('#content .check'));
-//		rect : 给框选一个class名rect 然后再写框选
-		
+		contentSelection(e);
+		return false;
 	})
 	
 

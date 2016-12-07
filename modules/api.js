@@ -314,10 +314,10 @@ router.post('/upload', checkAuth, upload.single('file'), function(req, res) {
  * */
 router.get('/getList', checkAuth, function(req, res) {
     var pid = req.query.pid || null;
-    console.log(pid);
     res.responseData.data = req.filesTree.getList(pid);
     res.sendJSON();
 });
+
 
 /*
  * 获取回收站中的数据 - 完成
@@ -393,6 +393,8 @@ router.get('/rename', checkAuth, function(req, res) {
 router.post('/move', checkAuth, function(req, res) {
     var targetId = req.body.targetId || '';
     var checkedId = req.body.checkedId ? req.body.checkedId.split(',') : [];
+//  var checkedName = req.body.checkedName ? req.body.checkedName.split(',') : [];
+	console.log(targetId);
 
     if (!targetId || !checkedId.length) {
         res.responseData.code = 1;
@@ -436,13 +438,20 @@ router.post('/move', checkAuth, function(req, res) {
         }
     }
 
+	//检测文件名是否重复
+//	for(var i = 0 ; i < checkedName.length; i++){
+//		
+//	}
+	
     //检测目标类型是否为文件夹
     if (!targetInfo.type) {
         res.responseData.code = 6;
         res.responseData.message = '目标不是文件夹';
         res.sendJSON();
     }
-
+	
+	
+	
     File.update({
         _id: {$in: checkedId}
     }, {
@@ -462,7 +471,7 @@ router.post('/move', checkAuth, function(req, res) {
 router.get('/remove', checkAuth, function(req, res) {
     var id = req.query.id || '';
     var ids = id.split(',');
-
+	console.log(id)
     if (!ids.length) {
         res.responseData.code = 1;
         res.responseData.message = '缺少文件id';
@@ -495,7 +504,7 @@ router.get('/remove', checkAuth, function(req, res) {
     for (var i=0; i<removeIds.length; i++) {
         filesList.push( req.filesTree.get(removeIds[i]) );
     }
-
+	
     if (!removeIds.length) {
         res.responseData.code = 2;
         res.responseData.message = '要删除的文件或者文件夹不存在';

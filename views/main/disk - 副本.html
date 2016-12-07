@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/public/css/disk.css" />
+		<script src="/public/js/jquery.min.js"></script>
+		<script src="/public/js/tools.js"></script>
+		<script src="/public/js/view.js"></script>
+		<script src="/public/js/model.js"></script>
+		<script src="/public/js/disk.js"></script>
+	</head>
+	<body>
+		<div class="wrapBox">
+			<!--头部内容-->
+			<header class="header">
+				<nav class="clearfix nav">
+					<h1 class="fl logo">
+						<a class="ico logo-bg" href="index.html" >微云</a>
+					</h1>
+					<div class="clearfix management">
+						<div class="fl file">
+							<div class="ico"></div>
+						</div>
+						<form class="fl search-box">
+							<div class="fl ico search-ico"></div>
+							<lable class="searchLable" for="search">输入文件名</lable>
+							<input type="text" value="" id="search" class="fl search" />
+							<div class="fr ico delete-ico"></div>
+						</form>
+					</div>
+					<div class="clearfix array-box">
+						<div id="view" class="fl array view">
+							<div id="lb" class="box fl left">
+								<span class="ico lbico"></span>
+							</div>
+							<div id="slt" class="box fl bg right">
+								<span class="ico sltico"></span>
+							</div>
+						</div>
+						<div id="sort" class="fl array sort">
+							<div id="time" class="box fl bg left">
+								<span class="ico timeico"></span>
+							</div>
+							<div id="zm" class="box fl right">
+								<span class="ico zmico"></span>
+							</div>
+						</div>
+					</div>
+					<div id="add" class="fr add">
+						<div id="addbg" class="ico bg"></div>
+						<input id="filebg" class="filebg" type="file" multiple />
+						<div class="type">
+							<div class="arrow">
+								<div class="bj"></div>
+							</div>
+							<ul class="clearfix lists">
+								<li class="fl list">
+									<div class="icon scwj"></div>
+									<span class="text">上传文件</span>
+									<input class="filebg" type="file" multiple />
+								</li>
+								<!--<li class="fl list">
+									<div class="icon scwjj"></div>
+									<span class="text">上传文件夹</span>
+									<input class="filebg" type="file" />
+								</li>-->
+								<li id="createfile" class="fl list">
+									<div class="icon cjwjj"></div>
+									<span class="text">创建文件夹</span>
+								</li>
+								<li class="fl list">
+									<div class="icon tjbj"></div>
+									<span class="text">添加笔记</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<nav id="navigation" class="clearfix navigation">
+					<h3 class="fl logo">
+						<a class="ico logo-bg" href="index.html" >微云</a>
+					</h3>
+					<div id="cancel" class="fl text cancel">取消选择</div>
+					<div class="fl selected">选择了<span id="checkednum"></span>项</div>
+					<ul class="fr lists">
+						<!--<li class="text">
+							<span class="ico downloadbg"></span>
+							<span>下载</span>
+						</li>-->
+						<!--<li class="text">
+							<span class="ico sharebg"></span>
+							<span>分享</span>
+						</li>-->
+						<li id="movebtn" class="text">
+							<span class="ico movebg"></span>
+							<span>移动到</span>
+						</li>
+						<li id="renamebtn" class="text">
+							<span class="ico renamebg"></span>
+							<span>重命名</span>
+						</li>
+						<li id="delete" class="text">
+							<span class="ico deletebg"></span>
+							<span>删除</span>
+						</li>
+					</ul>
+				</nav>
+				<div id="head-tips" class="head-tips"></div>
+			</header>
+			
+			<!--内容部分-->
+			<section class="wrapcontent">
+				
+				<!--左侧部分开始-->
+				<nav class="nav">
+					<div class="username">
+						<div class="portrait">
+							<img class="bg users" src="/public/img/1.gif" />
+						</div>
+						<div class="userinfo">
+							<div class="arrow">
+								<div class="bj"></div>
+							</div>
+							<div class="info">
+								<div class="fl user">四叶的三叶草</div>
+								<div id="off" class="fr off">
+									<div class="icon"></div>
+								</div>
+							</div>
+							<div class="members">
+								<div class="fl text">开通会员，专享特权</div>
+								<div class="fl member">
+									<span>开通会员</span>
+								</div>
+							</div>
+							<ul class="help">
+								<li class="list">开启独立密码</li>
+								<li class="list">帮助与反馈</li>
+							</ul>
+						</div>
+					</div>
+					<div class="navcontent">
+						<dl class="news">
+							<dt class="member">
+								<a href="javascript:;">项目描述</a>
+							</dt>
+							<dd class="list">
+								<span class="ico lately"></span>
+								<a href="javascript:;">日历</a>
+							</dd>
+						</dl>
+						<dl class="lists">
+							<dt>
+								<span>文件</span>
+							</dt>
+							<dd class="list checked">
+								<span class="ico all"></span>
+								<a href="javascript:;">全部</a>
+							</dd>
+							<dd class="list">
+								<span class="ico doc"></span>
+								<a href="javascript:;">文档</a>
+							</dd>
+							<dd class="list">
+								<span class="ico image"></span>
+								<a href="javascript:;">图片</a>
+							</dd>
+							<dd class="list">
+								<span class="ico video"></span>
+								<a href="javascript:;">视频</a>
+							</dd>
+							<dd class="list">
+								<span class="ico music"></span>
+								<a href="javascript:;">音乐</a>
+							</dd>
+						</dl>
+						<dl class="lists">
+							<dt>
+								<span>照片</span>
+							</dt>
+							<dd class="list">
+								<span class="ico time"></span>
+								<a href="javascript:;">时间</a>
+							</dd>
+						</dl>
+						<dl class="lists">
+							<dt>
+								<span>我的</span>
+							</dt>
+							<dd class="list">
+								<span class="ico recycle"></span>
+								<a href="javascript:;">回收站</a>
+							</dd>
+						</dl>
+					</div>
+				</nav>
+				
+				<!--右侧部分-->
+				<section class="contentbox">
+					<!--面包屑导航-->
+					<nav id="crumbs" class="crumbs slt">
+						<div id="checkAll" class="fl checkAll">
+							<div class="ico fl"></div>
+							<div class="fl bg"></div>
+						</div>
+						<div id="crumbsbox" class="fl lists">
+							<div id="wy" class="fl list wy text">微云</div>
+							<ul id="crumbslists" class="fl">
+								<!--<li class="list">
+									<span class="ico"></span>
+									<span class="text">css</span>
+								</li>-->
+							</ul>
+						</div>
+					</nav>
+					
+					<!--整体内容部分-->
+					<div id="contentlist" class="contentlist slt">
+						<div id="contentbg" class="contentbg">
+							<div class="bg">
+								<img src="/public/img/icon-nofile.png" />
+							</div>
+							<h2 class="text">暂无文件</h2>
+							<p class="tips">请点击右上角的"添加"按钮添加</p>
+						</div>
+						<div id="contentArea" class="content-area lists">
+							<ul id="content" class="clearfix">
+								<li id="1" class="box slt">
+									<div class="fl ico folder"></div>
+									<span class="fl text">练习</span>
+									<div class="ico check"></div>
+								</li>
+								<!--<li id="1" class="box slt">
+									<div class="fl ico folder"></div>
+									<input type="text" class="fl input" value="" />
+									<div class="ico check"></div>
+								</li>-->
+								
+								<!--<li class="box lb">
+									<div class="top">
+										<div class="fl ico check"></div>
+										<div class="fl ico folder"></div>
+										<span class="fl text">练习</span>
+										<time class="fr time">
+											<span>2016-11-05</span>
+											<span>13:30</span>
+										</time>
+										<ul class="clearfix fr choice">
+											<li class="ico sharebg"></li>
+											<li class="ico downloadbg"></li>
+											<li class="ico movebg"></li>
+											<li class="ico deletebg"></li>
+											<li class="ico renamebg"></li>
+										</ul>
+									</div>
+									<div class="foot"></div>
+								</li>-->
+							</ul>
+							<ul id="rests" class="clearfix rests-box">
+								<!--<li class="box slt rests">
+									<div class="ico top">
+										<img class="img" src="" />
+									</div>
+									<div class="bottom">
+										<span class="fl ico word-bg"></span>
+										<span class="fl text">maingzi</span>
+									</div>
+									<div class="ico check"></div>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				</section>
+			</section>
+			<!--弹出层-->
+			<div class="tipsbg">
+				<div class="tipsbox">
+					<header class="head">
+						<h3 id="headtitle" class="fl title">选择存储位置</h3>
+						<div id="tipsoff" class="ico fr"></div>
+					</header>
+					<div class="clearfix box">
+						<div class="top">
+							<div class="ico file"></div>
+							<div class="text">
+								<div class="fl name">111</div>
+								<div class="fl describe">等<span>12</span>个文件</div>
+							</div>
+						</div>
+						<div class="content">
+							<!--<div class="title">移动到：</div>
+							<div class="listsbox">
+								<div id="tips-wy">微云</div>
+								<ul class="lists">
+									<li></li>
+								</ul>
+								<div class="roll-box">
+									<div class="roll"></div>
+								</div>
+							</div>-->
+							<!--<div class="title">
+								<div class="fl title-left">
+									<span class="fl">上传到：</span>
+									<span class="fl uploading-nav"></span>
+								</div>
+								<div class="fr title-right">修改</div>
+							</div>-->
+						</div>
+						<div class="fr btns">
+							<div class="fl btn yes checked">确定</div>
+							<div class="fl btn no">取消</div>
+						</div>
+					</div>
+					<footer class="foot">
+						严禁存储、处理、传输、发布任何涉密、色情、暴力、侵权等违法违规信息
+					</footer>
+				</div>
+			</div>
+			
+			<!--拖拽出现的盒子-->
+			<div class="dragbox">1</div>
+			<!--<div class="progress">
+				<div class="progressBar">
+					<div class="progressBg"></div>
+					<div class="progressText"></div>
+				</div>
+				<div class="btn">确定</div>
+			</div>-->
+		</div>
+	</body>
+</html>
