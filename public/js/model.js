@@ -21,15 +21,20 @@ var WeiYun = {
 		//删除
 		deletes: '/api/remove',
 		//上传
-		upload: '/api/upload'
+		upload: '/api/upload',
+		//获取图片
+		getImage: '/api/getImage',
+		//获取视频
+		getVideo: '/api/getVideo',
+		//获取音频
+		getAudio: '/api/getAudio',
+		//回收站内容还原
+		recovery: '/api/recovery',
+		//获取所有子集
+		getChildren: '/api/getFile',
+		//获取当前元素
+		getMe: '/api/getMe'
 	},
-	
-//	element: {
-//		$contentlist : $('#contentlist'),
-//		$crumbslists: $('#crumbslists'),
-//		$container: $('#content'),
-//		$contentbg: $('#contentbg')
-//	},
 	
 	currentId:'',	//当前所在目录的id
 	
@@ -39,7 +44,7 @@ var WeiYun = {
 	
 	recycleBinCount : 0,	//回收站里内容的个数
 	
-	
+	keyCode : null,
 	
 	/*面包屑导航部分*/
 	crumbsList: function(){
@@ -75,15 +80,16 @@ var WeiYun = {
 			success: function(result){
 				if( result.code || !result.data.length){
 					//如果出错或者没有数据
-					WeiYun.currentCount = 0;
-					$('#contentbg').show();
-					$('#content').hide().html('');
-					$('#rests').hide().html('');
+					WeiYun.currentCount = WeiYun.currentChenkedCount = 0;
+					$('#contentbg').show().html(empty({
+						bg : 'filebg',
+						text : "暂无文件",
+						p : '请点击右上角的"添加"按钮添加'
+					}));
+					resultI();
 				}else {
 					WeiYun.currentCount = result.data.length;
-					$('#contentbg').hide();
-					$('#content').show().html('');
-					$('#rests').show().html('');
+					resultII();
 					romance({
 						result : result,
 						objClass : $('#contentlist'),
@@ -107,7 +113,7 @@ var WeiYun = {
             dataType: 'json',
             success: function(result) {
                 if (result.code) {
-                	$('#head-tips').show().html(result.message);
+ 					$('#head-tips').addClass('fail').show().html(result.message);
 					setTimeout(function(){
 						$('#head-tips').hide();
 					},2000);
@@ -125,12 +131,14 @@ var WeiYun = {
 			url: this.API.rename,
 			data: {
 				id: obj.id,
-				name: obj.name
+				name: obj.name,
+				type: obj.type
 			},
 			dataType: 'json',
 			success: function(result){
+				console.log('重命名'+WeiYun.currentId);
 				if(result.code == 2){
-					$('#head-tips').show().html(result.message);
+					$('#head-tips').addClass('fail').show().html(result.message);
 					setTimeout(function(){
 						$('#head-tips').hide();
 					},2000);
@@ -145,24 +153,30 @@ var WeiYun = {
 	},
 	
 	/*拖拽到*/
-	drags: function(checkedId,checkedName,targetId){
+	drags: function(checkedId,checkedName,checkedType,targetId){
+		console.log(checkedId,checkedName,checkedType,targetId)
 		$.ajax({
 			type: 'POST',
 			url: this.API.drag,
 			data: {
 				checkedId: checkedId.join(','),
-//				checkedName: checkedName.join(','),
+				checkedName: checkedName.join(','),
+				checkedType: checkedType.join(','),
 				targetId: targetId
 			},
 			dataType: 'json',
 			success: function(result){
+				console.log(result);
 				switch(result.code){
 					case 0:
 						$('#head-tips').addClass('success').show().html(result.message);
 						WeiYun.renderMainList();
 						break;
 					case 4:
-						console.log(4);
+						$('#head-tips').addClass('fail').show().html(result.message);
+						break;
+						
+					case 7:
 						$('#head-tips').addClass('fail').show().html(result.message);
 						break;
 				}
@@ -170,7 +184,7 @@ var WeiYun = {
 					$('#head-tips').hide();
 				},2000);
 				$('.dragbox').hide();
-				console.log(result);
+				console.log('拖拽到'+result);
 			}
 		})
 	},
@@ -184,12 +198,13 @@ var WeiYun = {
 			},
 			dataType: 'json',
 			success: function(result){
-				$('#head-tips').addClass('success').show().html(result.message);
+				console.log(result);
+				$('#head-tips').addClass('success').show().html(result.message);				
 				setTimeout(function(){
 					$('#head-tips').hide();
 				},2000);
+				
 				WeiYun.renderMainList();
-				console.log(result);
 			}
 		});
 	},
@@ -203,12 +218,13 @@ var WeiYun = {
 			},
 			dataType: 'json',
 			success: function(result){
-				$('#head-tips').show().html(result.message);
+				console.log(result);
+				$('#navigation').hide();
+				$('#head-tips').addClass('success').show().html(result.message);
 				setTimeout(function(){
 					$('#head-tips').hide();
 				},2000);
-				WeiYun.renderMainList();
-				console.log(result);
+				WeiYun.renderRecycleBinList();
 			}
 		});
 	},
@@ -224,10 +240,175 @@ var WeiYun = {
 		}
 		
 		var fd = new FormData();
-		fd.append('file',$('#filebg')[0].files[0]);
+		fd.append('file',$('#file')[0].files[0]);
 		fd.append('pid', WeiYun.currentId);
-		console.log(fd);
 		xhr.send(fd);
+	},
+	
+	/*回收站*/
+	renderRecycleBinList: function(){
+		$.ajax({
+			url: this.API.getRecycleBinList,
+			dataType: 'json',
+			success: function(result){
+				if( !result.data.length ){
+					WeiYun.recycleBinCount = 0;
+					$('#contentbg').show().html(empty({
+						bg : "recyclebg",
+						text : "回收站为空",
+						p : '删除后的文件会显示在回收站中'
+					}));
+					resultI();
+				} else {
+					resultII();
+					romance({
+						result : result,
+						objClass : $('#contentlist'),
+						appendParentI : $('#content'),
+						appendParentII: $('#rests')
+					});
+				}
+				
+			}
+		})
+	},
+	
+	/*回收站内容还原*/
+	recoveryList: function(checkedId){
+		console.log(checkedId)
+		$.ajax({
+			url: this.API.recovery,
+			data: {
+				id : checkedId.join(',')
+			},
+			dataType: 'json',
+			success: function(result){
+				$('#navigation').hide();
+				$('#head-tips').addClass('success').show().html(result.message);
+				setTimeout(function(){
+					$('#head-tips').hide();
+				},2000);
+				WeiYun.renderRecycleBinList();
+				console.log('还原成功');
+			}
+		})
+	},
+	
+	/*获取图片*/
+	applyImage: function(){
+		$.ajax({
+			url: this.API.getImage,
+			dataType: 'json',
+			success: function(result){
+				console.log(result);
+				if(!result.data.length){
+					WeiYun.currentCount = WeiYun.currentChenkedCount = 0;
+					$('#contentbg').show().html(empty({
+						bg : 'filebg',
+						text : "暂无文件",
+						p : '请点击右上角的"添加"按钮添加'
+					}));
+					resultI();
+				}else{
+					WeiYun.currentCount = result.data.length;
+					resultII();
+					romance({
+						result : result,
+						objClass : $('#contentlist'),
+						appendParentI : $('#content'),
+						appendParentII: $('#rests')
+					})
+				}
+			}
+		})
+	},
+	
+	/*获取视频*/
+	applyVideo: function(){
+		$.ajax({
+			url: this.API.getVideo,
+			dataType: 'json',
+			success: function(result){
+				console.log(result);
+				if(!result.data.length){
+					WeiYun.currentCount = WeiYun.currentChenkedCount = 0;
+					$('#contentbg').show().html(empty({
+						bg : 'filebg',
+						text : "暂无文件",
+						p : '请点击右上角的"添加"按钮添加'
+					}));
+					resultI();
+				}else{
+					WeiYun.currentCount = result.data.length;
+					resultII();
+					romance({
+						result : result,
+						objClass : $('#contentlist'),
+						appendParentI : $('#content'),
+						appendParentII: $('#rests')
+					})
+				}
+			}
+		})
+	},
+	
+	/*获取音频*/
+	applyAudio: function(){
+		$.ajax({
+			url: this.API.getAudio,
+			dataType: 'json',
+			success: function(result){
+				console.log('音频'+result);
+				if(!result.data.length){
+					WeiYun.currentCount = WeiYun.currentChenkedCount = 0;
+					$('#contentbg').show().html(empty({
+						bg : 'filebg',
+						text : "暂无文件",
+						p : '请点击右上角的"添加"按钮添加'
+					}));
+					resultI();
+				}else{
+					WeiYun.currentCount = result.data.length;
+					resultII();
+					romance({
+						result : result,
+						objClass : $('#contentlist'),
+						appendParentI : $('#content'),
+						appendParentII: $('#rests')
+					})
+				}
+			}
+		})
+	},
+	
+	/*获取所有子集*/
+	getChildren : function(){
+		$.ajax({
+			url:this.API.getChildren,
+			data:{
+				id: ''
+			},
+			dataType: 'json',
+			success: function(result){
+				moveHtml(result);
+			}
+		});
+	},
+	
+	/*获取自身*/
+	getMe: function(obj,id){
+		$.ajax({
+			url: this.API.getMe,
+			data: {
+				id:id
+			},
+			dataType: 'json',
+			success: function(result){
+				console.log(obj);
+				obj.attr('src','/'+ result.data.path);
+			}
+		});
 	}
+	
 	
 }

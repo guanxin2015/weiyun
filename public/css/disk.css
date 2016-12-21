@@ -60,6 +60,16 @@ body {
 .icon {
   background-image: url(../img/page-home-delay-kie161107101436.png);
 }
+.filebg {
+  background-image: url(../img/icon-nofile.png);
+  width: 162px;
+  height: 114px;
+}
+.recyclebg {
+  background-image: url(../img/icon-notrash.png);
+  width: 150px;
+  height: 150px;
+}
 .wrapBox {
   width: 100%;
   height: 100%;
@@ -81,7 +91,10 @@ body {
 .header .nav {
   position: relative;
 }
-.header .navigation {
+.header .navigation .logo-bg {
+  background-position: -824px -446px;
+}
+.navigation {
   display: none;
   height: 60px;
   line-height: 38px;
@@ -93,58 +106,65 @@ body {
   box-sizing: border-box;
   z-index: 100;
 }
-.header .navigation .logo-bg {
-  background-position: -824px -446px;
-}
-.header .navigation .text {
+.navigation .text {
   cursor: pointer;
   font-size: 12px;
   float: left;
 }
-.header .navigation .cancel {
+.navigation .cancel {
   margin-left: 94px;
 }
-.header .navigation .cancel:hover {
+.navigation .cancel:hover {
   text-decoration: underline;
 }
-.header .navigation .selected {
+.navigation .selected {
   margin-left: 346px;
   line-height: 40px;
   font-size: 18px;
 }
-.header .navigation .lists {
+.navigation .lists {
   height: 60px;
   margin-right: 15px;
   position: relative;
 }
-.header .navigation li {
+.navigation li {
   margin-right: 35px;
 }
-.header .navigation li .ico {
+.navigation li .ico {
   margin-right: 10px;
   margin-top: 12px;
   width: 18px;
   height: 17px;
 }
-.header .navigation li span {
+.navigation li span {
   float: left;
 }
-.header .navigation .downloadbg {
+.navigation .downloadbg {
   background-position: -619px -850px;
 }
-.header .navigation .sharebg {
+.navigation .sharebg {
   background-position: -600px -850px;
 }
-.header .navigation .movebg {
+.navigation .movebg {
   background-position: -695px -850px;
 }
-.header .navigation .renamebg {
+.navigation .renamebg {
   background-position: -734px -850px;
 }
-.header .navigation .deletebg {
+.navigation .deletebg {
   background-position: -696px -850px;
 }
-.header .logo {
+.navigation .restorebg {
+  background-position: -791px -850px;
+}
+.navigation .obliteratebg {
+  background-position: -829px -849px;
+}
+.navigation #restore,
+.navigation #obliterate {
+  display: none;
+}
+.logo {
   width: 145px;
   height: 100%;
 }
@@ -308,8 +328,7 @@ body {
   background-position: -680px -447px;
 }
 .header .type {
-  width: 320px;
-  height: 268px;
+  width: 214px;
   background-color: #ffffff;
   box-sizing: border-box;
   box-shadow: 0 0 3px 0 #eee;
@@ -377,8 +396,6 @@ body {
 /*头部结束*/
 /*内容部分开始*/
 .wrapcontent {
-  width: 100%;
-  height: 100%;
   min-width: 1024px;
   overflow: hidden;
   left: 0;
@@ -407,8 +424,7 @@ body {
 .wrapcontent .username {
   width: 200px;
   height: 90px;
-  position: fixed;
-  z-index: 210;
+  position: absolute;
 }
 .wrapcontent .username .portrait {
   width: 56px;
@@ -426,6 +442,7 @@ body {
   background-color: #ffffff;
   left: 20px;
   top: 99px;
+  z-index: 300;
 }
 .wrapcontent .username.hover .userinfo {
   display: block;
@@ -628,6 +645,7 @@ body {
   height: 60px;
   margin: 0 50px 0 40px;
   box-sizing: border-box;
+  position: absolute;
 }
 .contentbox .crumbs .lists {
   padding-top: 3px;
@@ -640,7 +658,6 @@ body {
 }
 .contentbox .checkAll {
   padding: 23px 0 18px 11px;
-  margin-right: ;
 }
 .contentbox .checkAll .ico {
   width: 18px;
@@ -659,11 +676,30 @@ body {
   height: 16px;
   background-color: #e6e7ec;
 }
+.contentbox .clearAll {
+  width: 90px;
+  height: 36px;
+  box-sizing: border-box;
+  margin-top: 12px;
+  border: 1px solid #d5d7df;
+  border-radius: 25px;
+  line-height: 36px;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
+.contentbox .clearAll:hover {
+  background-color: #f9fafb;
+}
+.contentbox .checkAll,
+.contentbox #crumbsbox {
+  display: block;
+}
 .contentbox .contentlist.lb {
-  padding: 0;
+  padding: 60px 0 0;
 }
 .contentbox .contentlist.slt {
-  padding: 0 40px;
+  padding: 60px 40px 0 40px;
 }
 /*面包屑导航开始*/
 .crumbs .list {
@@ -691,12 +727,12 @@ body {
 /*面包屑导航结束*/
 /*文件内容开始*/
 .contentlist {
-  padding: 0 40px;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
+  position: relative;
 }
 .contentlist .contentbg {
   margin: auto;
@@ -704,6 +740,11 @@ body {
 }
 .contentlist .lists {
   width: 100%;
+}
+.contentlist .content-box,
+.contentlist .rests-box {
+  min-width: 860px;
+  margin-right: -17px;
 }
 .contentlist .list {
   height: 100%;
@@ -792,10 +833,21 @@ body {
   border: 1px solid #d4d5d9;
   overflow: hidden;
 }
+.contentlist .box.rests .top .ico {
+  width: 100px;
+  height: 76px;
+  margin: 36px 47px;
+}
+.contentlist .box.rests .top .ico.audio {
+  background-position: -205px -588px;
+}
+.contentlist .box.rests .top .ico.video {
+  background-position: -406px -588px;
+}
 .contentlist .box.rests .img {
   display: inline-block;
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  min-height: 100%;
 }
 .contentlist .box.rests .input {
   margin: 10px 0 0 0;
@@ -838,6 +890,7 @@ body {
 .contentlist .box.lb {
   width: 100%;
   height: 56px;
+  position: relative;
   padding-left: 39px;
   box-sizing: border-box;
 }
@@ -860,23 +913,35 @@ body {
   background-position: -904px -849px;
 }
 .contentlist .box.lb .folder,
-.contentlist .box.lb .image {
+.contentlist .box.lb .image,
+.contentlist .box.lb .audio,
+.contentlist .box.lb .video {
   width: 40px;
   height: 40px;
   margin: 8px 15px 0 9px;
 }
-.contentlist .box.lb .folder .ico {
+.contentlist .box.lb .folder .ico,
+.contentlist .box.lb .audio .ico,
+.contentlist .box.lb .video .ico {
   width: 32px;
   height: 32px;
-  background-position: -86px -881px;
   margin: 4px;
+}
+.contentlist .box.lb .folder .ico {
+  background-position: -86px -881px;
+}
+.contentlist .box.lb .audio .ico {
+  background-position: -496px -883px;
+}
+.contentlist .box.lb .video .ico {
+  background-position: -578px -883px;
 }
 .contentlist .box.lb .image {
   overflow: hidden;
 }
 .contentlist .box.lb .image img {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  min-height: 100%;
 }
 .contentlist .box.lb .text,
 .contentlist .box.lb .time {
@@ -895,6 +960,9 @@ body {
   margin: 0 36px;
 }
 .contentlist .box.lb .choice {
+  position: absolute;
+  top: 3px;
+  right: 100px;
   margin-right: 130px;
   display: none;
 }
@@ -935,12 +1003,53 @@ body {
 .contentlist .box.lb .renamebg:hover {
   background-position: -962px -470px;
 }
+.contentlist .box.lb .restorebg {
+  background-position: -717px -516px;
+}
+.contentlist .box.lb .restorebg:hover {
+  background-position: -742px -516px;
+}
+.contentlist .box.lb .obliteratebg {
+  background-position: -767px -516px;
+}
+.contentlist .box.lb .obliteratebg:hover {
+  background-position: -792px -516px;
+}
+.contentlist .box.lb .sharebg,
+.contentlist .box.lb .downloadbg,
+.contentlist .box.lb .movebg,
+.contentlist .box.lb .deletebg,
+.contentlist .box.lb .renamebg {
+  display: block;
+}
+.contentlist .box.lb .restorebg,
+.contentlist .box.lb .obliteratebg {
+  display: none;
+}
 .contentlist .box.lb:hover,
 .contentlist .box.lb.hover {
   background-color: #f3f9ff;
 }
 .contentlist .box.lb:hover .choice {
   display: block;
+}
+.contentlist .roll-box {
+  width: 20px;
+  height: 100%;
+  background-color: #c3c3c3;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+.contentlist .roll {
+  width: 100%;
+  height: 50px;
+  background-color: #dfd7d7;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 8px;
 }
 /*文件内容结束*/
 /*右侧部分结束*/
@@ -992,6 +1101,7 @@ body {
 }
 .tipsbox {
   margin: auto;
+  position: absolute;
   width: 452px;
   border: 1px solid #cbcbcb;
   box-sizing: border-box;
@@ -1004,6 +1114,7 @@ body {
   box-sizing: border-box;
   border-bottom: 1px solid #dcdcdc;
   padding: 0 18px;
+  cursor: all-scroll;
 }
 .tipsbox .head .ico {
   background-position: -767px -490px;
@@ -1037,7 +1148,7 @@ body {
   background-position: -849px -782px;
 }
 .tipsbox .ico.audio {
-  background-position: -741px -544px;
+  background-position: -496px -883px;
 }
 .tipsbox .text {
   height: 37px;
@@ -1114,6 +1225,15 @@ body {
 }
 .tipsbox .listsbox .lists {
   overflow: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.tipsbox .listsbox .list {
+  height: 24px;
+  line-height: 24px;
+  cursor: pointer;
 }
 .tipsbox .listsbox .roll-box {
   width: 8px;
@@ -1132,8 +1252,38 @@ body {
   left: 0;
   top: 0;
 }
+.tipsbox #tips-wy {
+  padding-left: 3px;
+}
+.tipsbox .list:hover {
+  background-color: #ecf5fc;
+}
+.tipsbox .list.checked {
+  background-color: #ecf5fc;
+}
+.tipsbox .list.children .icon-bg {
+  background-position: -299px -55px;
+}
+.tipsbox .icon-bg {
+  width: 8px;
+  height: 8px;
+  background-position: -299px -38px;
+  margin-top: 9px;
+}
+.tipsbox .icon-file {
+  width: 20px;
+  height: 18px;
+  background-position: -270px -213px;
+  margin: 3px 6px 3px 4px;
+}
 .tipsbox .btns {
   padding: 24px 0;
+}
+.tipsbox .tips-text {
+  color: #ff433a;
+  height: 36px;
+  line-height: 36px;
+  display: none;
 }
 .tipsbox .btn {
   width: 92px;
@@ -1144,14 +1294,12 @@ body {
   line-height: 34px;
   border-radius: 25px;
   cursor: pointer;
+  margin-left: 9px;
 }
 .tipsbox .btn.checked {
   background-color: #318ef6;
   border-color: #2c89f1;
   color: #fff;
-}
-.tipsbox .no {
-  margin-left: 9px;
 }
 .tipsbox .foot {
   width: 100%;
@@ -1165,7 +1313,8 @@ body {
   position: absolute;
   top: 0;
   left: 42%;
-  width: 224px;
+  min-width: 224px;
+  padding: 5px 10px;
   height: 30px;
   color: #fff;
   line-height: 30px;
@@ -1178,6 +1327,7 @@ body {
 }
 .head-tips.success {
   background-color: #eaffda;
+  color: #000;
 }
 /*框选样式*/
 .rect-box {
@@ -1216,25 +1366,11 @@ body {
 .video-bg {
   background-position: -703px -544px;
 }
-.word,
-.audio,
-.video,
-.xlsx {
-  width: 100px;
-  height: 76px;
-  margin: auto;
-}
 .word {
   background-position: 0 -588px;
 }
 .xlsx {
   background-position: 0 -689px;
-}
-.audio {
-  background-position: -209px -588px;
-}
-.video {
-  background-position: -406px -588px;
 }
 /*上传进度*/
 .progress {
@@ -1250,4 +1386,163 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
+}
+/*点击回收站后的效果*/
+.recycle .array-box,
+.recycle #delete,
+.recycle #renamebtn,
+.recycle .checkAll,
+.recycle #crumbsbox,
+.recycle #movebtn {
+  display: none;
+}
+.recycle #restore,
+.recycle #obliterate,
+.recycle .clearAll {
+  display: block;
+}
+.recycle .box.lb .sharebg,
+.recycle .box.lb .downloadbg,
+.recycle .box.lb .movebg,
+.recycle .box.lb .deletebg,
+.recycle .box.lb .renamebg {
+  display: none;
+}
+.recycle .box.lb .restorebg,
+.recycle .box.lb .obliteratebg {
+  display: block;
+}
+.recycle .contentbox {
+  top: 0;
+}
+/*点击全部的效果*/
+.all .array-box,
+.all #delete,
+.all #renamebtn,
+.all .checkAll,
+.all #crumbsbox,
+.all .crumbs,
+.all #movebtn {
+  display: block;
+}
+.all #restore,
+.all #obliterate,
+.all .clearAll {
+  display: none;
+}
+.all .box.lb .sharebg,
+.all .box.lb .downloadbg,
+.all .box.lb .movebg,
+.all .box.lb .deletebg,
+.all .box.lb .renamebg {
+  display: block;
+}
+.all .box.lb .restorebg,
+.all .box.lb .obliteratebg {
+  display: none;
+}
+.all .contentbox {
+  top: 0;
+}
+.video .crumbs,
+.album .crumbs,
+.audio .crumbs,
+.video .array-box,
+.album .array-box,
+.audio .array-box {
+  display: none;
+}
+.video .contentbox,
+.album .contentbox,
+.audio .contentbox {
+  top: 20px;
+}
+.restsbg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 400;
+  transform: scale(0);
+  transition: 1s;
+}
+.restsbg .audiobg {
+  display: none;
+}
+.restsbgbox {
+  margin: auto;
+  width: 600px;
+  height: 400px;
+  position: relative;
+}
+.restsbox .off {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: -100px;
+  top: -50px;
+  color: #fff;
+  font-size: 50px;
+  cursor: pointer;
+  transition: 1s;
+  opacity: .5;
+}
+.restsbox .off:hover {
+  opacity: 1;
+}
+.restsbg.image .restsbox {
+  width: 600px;
+  height: 400px;
+  display: flex;
+}
+.restsbg.image .img {
+  margin: auto;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.restsbg.audio .restsbox {
+  text-align: center;
+}
+.restsbg.audio .audiobg {
+  margin: 50px auto;
+  width: 300px;
+  height: 300px;
+  display: block;
+  border-radius: 50%;
+  background: url(../img/yy.png) center top no-repeat;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+}
+/*右键*/
+.contextmenu-box {
+  display: none;
+  position: absolute;
+  top: 200px;
+  left: 300px;
+  width: 160px;
+  border: 1px solid #c8ccd5;
+  box-shadow: 2px 2px 1px rgba(188, 188, 188, 0.8);
+  background-color: #ffffff;
+  z-index: 500;
+}
+.contextmenu-box .text {
+  cursor: pointer;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 10px;
+}
+.contextmenu-box .text:hover {
+  background-color: rgba(59, 147, 255, 0.5);
+  color: #fff;
 }

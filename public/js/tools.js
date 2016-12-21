@@ -92,4 +92,50 @@ function timeII(t){
 }
 
 
+/*获取当前的元素的子集*/
+function getChild(obj,pid){
+	var data = [];
+	if(obj.length){
+		for(var i = 0; i< obj.length; i++){
+			if(obj[i].getAttribute('_pid') == pid){
+				data.push(obj[i]);
+			}
+		}
+	}
+	return data;
+}
 
+/*获取所有的子集*/
+function getChildren(obj,id){
+	var list = getChild(obj,id);
+	var level = level || null;
+	var children = [];
+	if(list.length){
+		for(var i = 0; i< list.length; i++){
+			children.push(list[i]);
+			children = children.concat(getChildren(obj,list[i].getAttribute('_id')))
+		}
+	}
+	return children;
+}
+
+/*获取当前父级*/
+function getParent(obj,pid) {
+    var parent = null;
+    for(var i=0; i< obj.length; i++){
+    	if(obj[i].getAttribute('_id') == pid){
+    		return parent = obj[i];
+    	}
+    }
+}
+
+/*获取所有父级*/
+function getParents(obj,pid){
+	var parents = [];
+	var parent = getParent(obj,pid);
+	if(parent){
+		parents = parents.concat(getParents(obj,parent.getAttribute('_pid')));
+		parents.push(parent);
+	}
+	return parents;
+}

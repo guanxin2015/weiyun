@@ -318,6 +318,68 @@ router.get('/getList', checkAuth, function(req, res) {
     res.sendJSON();
 });
 
+/*
+ * 获取自身 - 完成
+ * method: GET
+ * params:
+ *   <number>pid : 父级ID
+ * */
+router.get('/getMe', checkAuth, function(req, res) {
+    var id = req.query.id || null;
+    res.responseData.data = req.filesTree.get(id);
+    res.sendJSON();
+});
+
+/*
+ * 获取所有的文件夹
+ * method: GET
+ * params:
+ *   <number>pid : 父级ID
+ * */
+router.get('/getFile', checkAuth, function(req, res) {
+	console.log('获取所有文件夹');
+	var id = req.query.id || null;
+    res.responseData.data = req.filesTree.getChildren(id);
+    res.sendJSON();
+});
+
+
+/*
+ * 获取所有的图片文件
+ * method: GET
+ * params:
+ *   <number>pid : 父级ID
+ * */
+router.get('/getImage', checkAuth, function(req, res) {
+//	console.log('获取图片');
+    res.responseData.data = req.filesTree.getImage();
+    res.sendJSON();
+});
+
+/*
+ * 获取所有的视频文件
+ * method: GET
+ * params:
+ *   <number>pid : 父级ID
+ * */
+router.get('/getVideo', checkAuth, function(req, res) {
+//	console.log('获取视频');
+    res.responseData.data = req.filesTree.getVideo();
+    res.sendJSON();
+});
+
+/*
+ * 获取所有的视频文件
+ * method: GET
+ * params:
+ *   <number>pid : 父级ID
+ * */
+router.get('/getAudio', checkAuth, function(req, res) {
+//	console.log('获取音频');
+    res.responseData.data = req.filesTree.getAudio();
+    res.sendJSON();
+});
+
 
 /*
  * 获取回收站中的数据 - 完成
@@ -351,17 +413,21 @@ router.get('/crumbs', checkAuth, function(req, res) {
 router.get('/rename', checkAuth, function(req, res) {
     var id = req.query.id || null;
     var name = req.query.name || null;
+    var type = req.query.type || null;
     var file = req.filesTree.get(id);
+//  console.log('file='+file)
     if (!file) {
         res.responseData.code = 1;
         res.responseData.message = '文件/文件夹不存在';
         res.sendJSON();
         return;
     }
-
+	
     if (file.type) {
         //文件夹
         var list = req.filesTree.getList( file.pid, true );
+//      console.log(list);
+        
         for (var i=0; i<list.length; i++) {
             if (list[i].name == name) {
                 if (list[i]._id.toString() != file._id.toString()) {
@@ -376,9 +442,21 @@ router.get('/rename', checkAuth, function(req, res) {
             }
         }
     } else {
-        //文件
+        //非文件夹
+        var list = req.filesTree.getList( file.pid, false );
+        for(var i = 0; i< list.length; i++){
+        	if(list[i].mimetype.indexOf(type) != -1){
+        		if(list[i].name == name){
+        			if(list[i]._id.toString() != file._id.toString()){
+        				res.responseData.code = 2;
+                    	res.responseData.message = '该目录下已经存在同名的目录';
+        			}
+        			res.sendJSON();
+                	return;
+        		}
+        	}
+        }
     }
-
     file.name = name;
     file.save().then(function(newFile) {
         res.responseData.message = '重命名成功';
@@ -393,9 +471,17 @@ router.get('/rename', checkAuth, function(req, res) {
 router.post('/move', checkAuth, function(req, res) {
     var targetId = req.body.targetId || '';
     var checkedId = req.body.checkedId ? req.body.checkedId.split(',') : [];
-//  var checkedName = req.body.checkedName ? req.body.checkedName.split(',') : [];
-	console.log(targetId);
-
+    var checkedName = req.body.checkedName ? req.body.checkedName.split(',') : [];
+	var checkedType = req.body.checkedType ? req.body.checkedType.split(',') : [];
+	var lists = req.filesTree.getLists(targetId);
+	
+//	console.log(lists);
+//	console.log('-------------------')
+//	console.log(checkedType)
+//	console.log('-------------------')
+//	console.log(checkedId)
+//	console.log('-------------------')
+//	console.log(checkedName)
     if (!targetId || !checkedId.length) {
         res.responseData.code = 1;
         res.responseData.message = '源id和目标id不存在';
@@ -437,11 +523,8 @@ router.post('/move', checkAuth, function(req, res) {
             return;
         }
     }
-
-	//检测文件名是否重复
-//	for(var i = 0 ; i < checkedName.length; i++){
-//		
-//	}
+	
+	
 	
     //检测目标类型是否为文件夹
     if (!targetInfo.type) {
@@ -450,7 +533,28 @@ router.post('/move', checkAuth, function(req, res) {
         res.sendJSON();
     }
 	
-	
+	//检测文件名是否重复
+
+	for(var i = 0 ; i < lists.length; i++){
+		for(var j = 0; j < checkedId.length; j++){
+			if(!lists[i].mimetype){
+				if(lists[i].type == Boolean(checkedType[j]) &&　lists[i].name ==checkedName[j] ){
+					res.responseData.code = 7;
+					res.responseData.message = '“' + checkedName[j] + '”'+ '这个名字有冲突,请更名后再移动';
+					res.sendJSON();
+					return;
+				}
+			} else {
+				if(lists[i].mimetype.split('/')[0]== checkedType[j] &&　lists[i].name.split('.')[0] ==checkedName[j] ){
+					res.responseData.code = 7;
+					res.responseData.message = '“' + checkedName[j] + '”'+ '这个名字有冲突,请更名后再移动';
+					res.sendJSON();
+					return;
+				}
+			}
+			
+		}
+	}
 	
     File.update({
         _id: {$in: checkedId}
@@ -471,7 +575,7 @@ router.post('/move', checkAuth, function(req, res) {
 router.get('/remove', checkAuth, function(req, res) {
     var id = req.query.id || '';
     var ids = id.split(',');
-	console.log(id)
+//	console.log(id)
     if (!ids.length) {
         res.responseData.code = 1;
         res.responseData.message = '缺少文件id';
@@ -595,6 +699,17 @@ function checkAuth(req, res, next) {
             req.filesTree = new Tree(result);
             next();
         });
+        
+//      File.find({
+//          uid: req.userInfo._id
+//      }).sort(
+//      	{
+//      		createTime: -1
+//      	}
+//      ).then(function(result) {
+//          req.filesTree = new Tree(result);
+//          next();
+//      });
 
     }
 }

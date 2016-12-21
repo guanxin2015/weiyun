@@ -40,9 +40,16 @@ Tree.prototype.getParents = function(id) {
 
 Tree.prototype.getList = function(pid, type) {
     var data = [];
+    
+    if(pid === null){
+    	pid = 'null';
+    }
+    
     for (var i=0; i<this.data.length; i++) {
-        if ( this.data[i].pid == pid && this.data[i].isRecycleBin == false ) {
-
+//	console.log(String(this.data[i].pid) ,pid, String(this.data[i].pid) == pid)
+  	//console.log(this.data[i].isRecycleBin, false, this.data[i].isRecycleBin == false)
+        if ( String(this.data[i].pid) == pid && this.data[i].isRecycleBin == false ) {
+			
             if (type === undefined) {
                 data.push(this.data[i]);
             } else {
@@ -51,9 +58,28 @@ Tree.prototype.getList = function(pid, type) {
                     data.push(this.data[i]);
                 }
             }
-
         }
     }
+//  console.log(data);
+    
+    return data;
+};
+
+Tree.prototype.getLists = function(pid) {
+    var data = [];
+    
+    if(pid === null){
+    	pid = 'null';
+    }
+    
+    for (var i=0; i<this.data.length; i++) {
+    	
+        if ( String(this.data[i].pid) == pid && this.data[i].isRecycleBin == false ) {
+			data.push(this.data[i]);
+            
+        }
+    }
+//  console.log(data);
     return data;
 };
 
@@ -99,6 +125,36 @@ Tree.prototype.getRecycleBinList = function() {
     }
     return data;
 };
+
+Tree.prototype.getImage = function(){
+	var data = [];
+	for(var i = 0 ; i < this.data.length; i++){
+		if(this.data[i].mimetype && this.data[i].isRecycleBin == false && this.data[i].mimetype.indexOf('image') != -1){
+			data.push(this.data[i]);
+		}
+	}
+	return data;
+}
+
+Tree.prototype.getVideo = function(){
+	var data = [];
+	for(var i = 0 ; i < this.data.length; i++){
+		if(this.data[i].mimetype && this.data[i].isRecycleBin == false && this.data[i].mimetype.indexOf('video') != -1){
+			data.push(this.data[i]);
+		}
+	}
+	return data;
+}
+
+Tree.prototype.getAudio = function(){
+	var data = [];
+	for(var i = 0 ; i < this.data.length; i++){
+		if(this.data[i].mimetype && this.data[i].isRecycleBin == false && this.data[i].mimetype.indexOf('audio') != -1){
+			data.push(this.data[i]);
+		}
+	}
+	return data;
+}
 
 Tree.prototype.rename = function(id, newname) {
     var file = this.get(id);

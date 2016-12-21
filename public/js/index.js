@@ -159,20 +159,13 @@ $(function(){
 			data : {
 				username : this.username.value,
 				password : this.password.value,
-				repassword : this.password.value
+				repassword : this.repassword.value
 			},
 			dataType: 'json',
 			
 			//发送请求成功后返回的数据时页面需要做的事情
 			success : function(result){
-				$('.regiserbox .submittext').html(result.message);
-				if(result.code){
-					//未成功时显示的内容情况
-					$('.regiserbox .submittext').css('color','red');
-				}else {
-					//成功时显示的内容情况
-					$('.regiserbox .submittext').css('color','green');
-				}
+				$('.regiserbox #submit').val(result.message);
 			}
 		});
 		
@@ -191,11 +184,14 @@ $(function(){
 			},
 			dataType:'json',
 			success : function(result){
-				$('.loginbox .submittext').html(result.message);
 				if(result.code){
-					$('.loginbox .submittext').css('color','red');
+					$('.loginbox #submitI').val(result.message);
+					setTimeout(function(){
+						$('.loginbox #submitI').val('登录');
+					},1000);
+//					$('.loginbox .submittext').css('color','red');
 				}else {
-					$('.loginbox .submittext').css('color','green');
+//					$('.loginbox .submittext').css('color','green');
 					//延迟跳转页面
 					setTimeout(function(){
 						window.location.reload(); //？？？
