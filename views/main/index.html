@@ -66,13 +66,13 @@
 						<form action="/api/user/login" class="login">
 							<div>
 								<input type="text" name="username" />
-								<span class="username">默认账号leo</span>
+								<span class="username">默认账号guan</span>
 							</div>
 							<div>
 								<input type="password" name="password" />
 								<span>密码:123</span>
 							</div>
-							<input type="submit" name="submit" value="登录"/>
+							<input type="submit" id="submitI" name="submit" value="登录"/>
 						</form>
 						<div class="submittext"></div>
 					</div>
@@ -80,7 +80,7 @@
 						<form action="/api/user/register" class="register">
 							<div>
 								<input type="text" name="username"/>
-								<span>请输入要申请的QQ号</span>
+								<span>请输入长度在3-16之间的字符</span>
 								<span class="message-username"></span>
 							</div>
 							<div>
@@ -91,7 +91,7 @@
 								<input type="password" name="repassword" />
 								<span>重复输入密码</span>
 							</div>
-							<input type="submit" name="submit" value="注册" />
+							<input type="submit" id="submit" name="submit" value="注册" />
 						</form>
 						<div class="submittext"></div>
 					</div>

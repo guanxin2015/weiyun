@@ -31,7 +31,6 @@
 					</div>
 					<div id="add" class="fr add">
 						<div id="addbg" class="ico bg"></div>
-						<input id="filebg" class="filebg" type="file" multiple />
 						<div class="type">
 							<div class="arrow">
 								<div class="bj"></div>
@@ -58,14 +57,6 @@
 					<div id="cancel" class="fl text cancel">取消选择</div>
 					<div class="fl selected">选择了<span id="checkednum"></span>项</div>
 					<ul class="fr lists">
-						<!--<li class="text">
-							<span class="ico downloadbg"></span>
-							<span>下载</span>
-						</li>-->
-						<!--<li class="text">
-							<span class="ico sharebg"></span>
-							<span>分享</span>
-						</li>-->
 						<li id="movebtn" class="text">
 							<span class="ico movebg"></span>
 							<span>移动到</span>
@@ -77,6 +68,14 @@
 						<li id="delete" class="text">
 							<span class="ico deletebg"></span>
 							<span>删除</span>
+						</li>
+						<li id="restore" class="text">
+							<span class="ico restorebg" ></span>
+							<span>还原</span>
+						</li>
+						<li id="obliterate" class="text">
+							<span class="ico obliteratebg"></span>
+							<span>清除</span>
 						</li>
 					</ul>
 				</nav>
@@ -119,50 +118,37 @@
 							<dt class="member">
 								<span>项目描述</span>
 							</dt>
-							<dd class="list">
+							<!--<dd class="list">
 								<span class="ico lately"></span>
-								<a href="javascript:;">日历</a>
-							</dd>
+								<a href="javascript:;">最近</a>
+							</dd>-->
 						</dl>
 						<dl class="lists">
 							<dt>
 								<span>文件</span>
 							</dt>
-							<dd class="list checked">
+							<dd id="all" class="list checked">
 								<span class="ico all"></span>
 								<a href="javascript:;">全部</a>
 							</dd>
-							<dd class="list">
-								<span class="ico doc"></span>
-								<a href="javascript:;">文档</a>
-							</dd>
-							<dd class="list">
+							<dd id="album" class="list">
 								<span class="ico image"></span>
 								<a href="javascript:;">图片</a>
 							</dd>
-							<dd class="list">
+							<dd id="video" class="list">
 								<span class="ico video"></span>
 								<a href="javascript:;">视频</a>
 							</dd>
-							<dd class="list">
+							<dd id="audio" class="list">
 								<span class="ico music"></span>
 								<a href="javascript:;">音乐</a>
 							</dd>
 						</dl>
 						<dl class="lists">
 							<dt>
-								<span>照片</span>
-							</dt>
-							<dd class="list">
-								<span class="ico time"></span>
-								<a href="javascript:;">时间</a>
-							</dd>
-						</dl>
-						<dl class="lists">
-							<dt>
 								<span>我的</span>
 							</dt>
-							<dd class="list">
+							<dd id="recycle" class="list">
 								<span class="ico recycle"></span>
 								<a href="javascript:;">回收站</a>
 							</dd>
@@ -181,68 +167,31 @@
 						<div id="crumbsbox" class="fl lists">
 							<div id="wy" class="fl list wy text">微云</div>
 							<ul id="crumbslists" class="fl">
-								<!--<li class="list">
-									<span class="ico"></span>
-									<span class="text">css</span>
-								</li>-->
 							</ul>
 						</div>
+						<div id="clearAll" class="fl clearAll">全部清空</div>
 					</nav>
 					
 					<!--整体内容部分-->
 					<div id="contentlist" class="contentlist slt">
 						<div id="contentbg" class="contentbg">
-							<div class="bg">
-								<img src="/public/img/icon-nofile.png" />
-							</div>
+							<div class="filebg"></div>
 							<h2 class="text">暂无文件</h2>
 							<p class="tips">请点击右上角的"添加"按钮添加</p>
 						</div>
 						<div id="contentArea" class="content-area lists">
-							<ul id="content" class="clearfix">
+							<ul id="content" class="clearfix content-box">
 								<li id="1" class="box slt">
 									<div class="fl ico folder"></div>
 									<span class="fl text">练习</span>
 									<div class="ico check"></div>
 								</li>
-								<!--<li id="1" class="box slt">
-									<div class="fl ico folder"></div>
-									<input type="text" class="fl input" value="" />
-									<div class="ico check"></div>
-								</li>-->
-								
-								<!--<li class="box lb">
-									<div class="top">
-										<div class="fl ico check"></div>
-										<div class="fl ico folder"></div>
-										<span class="fl text">练习</span>
-										<time class="fr time">
-											<span>2016-11-05</span>
-											<span>13:30</span>
-										</time>
-										<ul class="clearfix fr choice">
-											<li class="ico sharebg"></li>
-											<li class="ico downloadbg"></li>
-											<li class="ico movebg"></li>
-											<li class="ico deletebg"></li>
-											<li class="ico renamebg"></li>
-										</ul>
-									</div>
-									<div class="foot"></div>
-								</li>-->
 							</ul>
 							<ul id="rests" class="clearfix rests-box">
-								<!--<li class="box slt rests">
-									<div class="ico top">
-										<img class="img" src="" />
-									</div>
-									<div class="bottom">
-										<span class="fl ico word-bg"></span>
-										<span class="fl text">maingzi</span>
-									</div>
-									<div class="ico check"></div>
-								</li>-->
 							</ul>
+						</div>
+						<div class="roll-box">
+							<div class="roll"></div>
 						</div>
 					</div>
 				</section>
@@ -252,7 +201,7 @@
 				<div class="tipsbox">
 					<header class="head">
 						<h3 id="headtitle" class="fl title">选择存储位置</h3>
-						<div id="tipsoff" class="ico fr"></div>
+						<div id="tipsoff" class="ico fr tipsoff"></div>
 					</header>
 					<div class="clearfix box">
 						<div class="top">
@@ -263,25 +212,19 @@
 							</div>
 						</div>
 						<div class="content">
-							<!--<div class="title">移动到：</div>
-							<div class="listsbox">
-								<div id="tips-wy">微云</div>
-								<ul class="lists">
-									<li></li>
-								</ul>
-								<div class="roll-box">
-									<div class="roll"></div>
-								</div>
-							</div>-->
-							<!--<div class="title">
-								<div class="fl title-left">
-									<span class="fl">上传到：</span>
-									<span class="fl uploading-nav"></span>
-								</div>
-								<div class="fr title-right">修改</div>
-							</div>-->
+							<ul class="lists">
+								<li class="list">
+									<span class="icon icon-bg fl"></span>
+									<span class="icon icon-file fl"></span>
+									<span class="fl">文件</span>
+								</li>
+							</ul>
+							<div class="roll-box">
+								<div class="roll"></div>
+							</div>
 						</div>
 						<div class="fr btns">
+							<div class="fl tips-text">不能将文件移动到自身或其子文件夹</div>
 							<div class="fl btn yes checked">确定</div>
 							<div class="fl btn no">取消</div>
 						</div>
@@ -294,13 +237,27 @@
 			
 			<!--拖拽出现的盒子-->
 			<div class="dragbox">1</div>
-			<!--<div class="progress">
-				<div class="progressBar">
-					<div class="progressBg"></div>
-					<div class="progressText"></div>
+			
+			<!--音频、视频、图片弹出层-->
+			<div class="restsbg">
+				<div class="restsbgbox">
+					<div class="audiobg"></div>
+					<div class="restsbox">
+						<div class="off">×</div>
+						<!--<video class="video" width="600" controls></video>-->
+						<!--<audio></audio>-->
+					</div>
 				</div>
-				<div class="btn">确定</div>
-			</div>-->
+			</div>
+			
+			<!--右键内容-->
+			<div class="contextmenu-box">
+				<ul class="contextmenu">
+					<li class="text move">移动到</li>
+					<li class="text rename">重命名</li>
+					<li class="text remove">删除</li>
+				</ul>
+			</div>
 		</div>
 	</body>
 </html>

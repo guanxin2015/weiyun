@@ -408,8 +408,9 @@ function romance(obj){
 			})
 		}
 		
-		
-		scrollView($('#contentlist'),$('#contentArea'),$('#contentbg .roll-box'),$('#contentbg .roll'));
+		$('#contentArea').css('top',0);
+		$('#contentlist .roll').css('top',0);
+		scrollView($('#contentlist'),$('#contentArea'),$('#contentlist .roll-box'),$('#contentlist .roll'));
 		
 		if(attrClass.indexOf('lb') != -1){
 			lbCheck();
@@ -886,7 +887,7 @@ function deleteHtml(){
 		con = '确定要删除这些文件吗？';
 	}
 	var html = '';
-	html = `<div>
+	html = `<div class="clearfix">
 				<div class="icon"></div>
 				<div class="text">
 					<p class="text-top">${con}</p>
@@ -1015,6 +1016,7 @@ function scrollView(box,lists,rollBox,roll){
 		rollBox.hide();
 		box[0].onmousewheel = null;
 		box[0].addEventListener('DOMMouseScroll',null);
+		return;
 	}else {
 		rollBox.show();
 		roll.css({
@@ -1025,10 +1027,10 @@ function scrollView(box,lists,rollBox,roll){
 	}
 	
 	var maxTop = listsboxH - parseInt(roll.css('height'));
-	
+	console.log(hScale *listsboxH,roll.css('height'));
 	roll.on('mousedown',function(e){
 		var t = e.clientY - parseInt($(this).css('top'));
-		console.log(t);
+		
 		document.onmousemove = function(e){
 			var btnT = e.clientY - t;
 			setTop(btnT);
@@ -1141,6 +1143,7 @@ function restsBg(obj,target,type){
 
 /*ajax返回数据长度为0的通用函数*/
 function resultI(){
+	$('#contentlist').css('display','flex');
 	$('#contentArea').hide();
 	$('#content').html('');
 	$('#rests').html('');
@@ -1149,6 +1152,7 @@ function resultI(){
 
 /*ajax返回数据有长度时的通用函数*/
 function resultII(){
+	$('#contentlist').css('display','block');
 	$('#contentbg').hide();
 	$('#contentArea').show();
 	$('#content').html('');

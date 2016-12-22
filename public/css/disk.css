@@ -642,10 +642,9 @@ body {
 /*左侧用户信息结束*/
 /*右侧内容开始*/
 .contentbox .crumbs {
-  height: 60px;
+  height: 61px;
   margin: 0 50px 0 40px;
   box-sizing: border-box;
-  position: absolute;
 }
 .contentbox .crumbs .lists {
   padding-top: 3px;
@@ -696,10 +695,16 @@ body {
   display: block;
 }
 .contentbox .contentlist.lb {
-  padding: 60px 0 0;
+  padding: 0;
+}
+.contentbox .contentlist.lb .lists {
+  left: 0;
 }
 .contentbox .contentlist.slt {
-  padding: 60px 40px 0 40px;
+  padding: 0 40px;
+}
+.contentbox .contentlist.slt .lists {
+  left: 40px;
 }
 /*面包屑导航开始*/
 .crumbs .list {
@@ -727,12 +732,13 @@ body {
 /*面包屑导航结束*/
 /*文件内容开始*/
 .contentlist {
-  width: 100%;
-  height: 100%;
   box-sizing: border-box;
   overflow: hidden;
-  display: flex;
-  position: relative;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 .contentlist .contentbg {
   margin: auto;
@@ -740,6 +746,7 @@ body {
 }
 .contentlist .lists {
   width: 100%;
+  position: absolute;
 }
 .contentlist .content-box,
 .contentlist .rests-box {
@@ -1034,12 +1041,13 @@ body {
   display: block;
 }
 .contentlist .roll-box {
-  width: 20px;
+  width: 10px;
   height: 100%;
   background-color: #c3c3c3;
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 200;
   display: none;
 }
 .contentlist .roll {
@@ -1049,7 +1057,7 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 /*文件内容结束*/
 /*右侧部分结束*/
